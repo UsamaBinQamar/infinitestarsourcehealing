@@ -12,7 +12,7 @@ export function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className="flex min-h-screen">
-      {/* Main Content */}
+      {/* Main Content- */}
       <main className="flex-1 ml-0 md:ml-[280px] bg-gradient-to-b from-purple-50 to-white">
         {/* Mobile menu button */}
         <div className="p-4 md:hidden">
