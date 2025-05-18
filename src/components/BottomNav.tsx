@@ -26,27 +26,27 @@ const allLocations = [
     category: "Free Healing",
     items: [
       { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
-      {
-        href: "/request-healing",
-        label: "Request Healing & Prayer",
-        icon: Heart,
-      },
+      // {
+      //   href: "/request-healing",
+      //   label: "Request Healing & Prayer",
+      //   icon: Heart,
+      // },
       { href: "/share-healing", label: "Share Healing", icon: Flower2 },
-      {
-        href: "/daily-blessings",
-        label: "Daily Reiki/Energy Blessings",
-        icon: Sparkles,
-      },
-      {
-        href: "/daily-reiki-subscription",
-        label: "Daily Reiki Subscription",
-        icon: Activity,
-      },
-      {
-        href: "/musicians-submit-simple",
-        label: "For Musicians/Artists/Creators",
-        icon: Music,
-      },
+      // {
+      //   href: "/daily-blessings",
+      //   label: "Daily Reiki/Energy Blessings",
+      //   icon: Sparkles,
+      // },
+      // {
+      //   href: "/daily-reiki-subscription",
+      //   label: "Daily Reiki Subscription",
+      //   icon: Activity,
+      // },
+      // {
+      //   href: "/musicians-submit-simple",
+      //   label: "For Musicians/Artists/Creators",
+      //   icon: Music,
+      // },
     ],
   },
   {
