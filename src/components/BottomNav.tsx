@@ -1,20 +1,18 @@
 "use client";
-import Link from "next/link";
-import { useContext } from "react";
 import { SidebarContext } from "@/context/SidebarContext";
 import {
-  Home,
-  Heart,
-  Music,
-  Users,
-  Sparkles,
-  Activity,
-  Zap,
-  Flower2,
-  HelpCircle,
-  Mail,
   CircleDollarSign,
+  Flower2,
+  Heart,
+  HelpCircle,
+  Home,
+  Mail,
+  Sparkles,
+  Users,
+  Zap,
 } from "lucide-react";
+import Link from "next/link";
+import { useContext } from "react";
 
 // All locations/pages available in the app with location categories
 const allLocations = [
