@@ -53,18 +53,17 @@ export default function Home() {
           </div>
         </Link>
 
-        <Link href="/daily-blessings">
+        <Link href="/24-hour-activations">
           <div className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer h-full">
             <div className="p-6 flex flex-col h-full">
               <div className="p-3 bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                 <Sparkles className="w-7 h-7 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Daily Blessings
+                24 Hour Activations
               </h3>
               <p className="text-gray-600 flex-grow">
-                Receive daily Reiki energy blessings to support your spiritual
-                journey.
+                Receive 24 hour activations to support your spiritual journey.
               </p>
               <div className="mt-4 text-blue-600 font-medium">Learn more →</div>
             </div>

@@ -4,7 +4,6 @@ import {
   CircleDollarSign,
   Flower2,
   Heart,
-  HelpCircle,
   Home,
   Mail,
   Sparkles,
@@ -23,6 +22,11 @@ const allLocations = [
   {
     category: "Free Healing",
     items: [
+      {
+        href: "/24-hour-activations",
+        label: "24 Hour Activations",
+        icon: Sparkles,
+      },
       { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
       // {
       //   href: "/request-healing",
@@ -30,6 +34,7 @@ const allLocations = [
       //   icon: Heart,
       // },
       { href: "/share-healing", label: "Share Healing", icon: Flower2 },
+
       // {
       //   href: "/daily-blessings",
       //   label: "Daily Reiki/Energy Blessings",
@@ -51,7 +56,7 @@ const allLocations = [
     category: "Other",
     items: [
       { href: "/donate", label: "Donate", icon: CircleDollarSign },
-      { href: "/faq", label: "FAQ", icon: HelpCircle },
+      // { href: "/faq", label: "FAQ", icon: HelpCircle },
       { href: "/contributors", label: "Contributors", icon: Users },
       { href: "/contact", label: "Contact", icon: Mail },
     ],
