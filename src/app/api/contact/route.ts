@@ -22,6 +22,7 @@ export async function POST(request: Request) {
       subject: `Contact Form: ${subject}`,
       react: await EmailTemplate({ name, email, subject, message }),
     });
+    console.log("Email sent:", data);
 
     if (error) {
       console.error("Error sending email:", error);

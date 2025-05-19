@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    //Remove error on change
+
     setErrors({ ...errors, [name]: undefined });
   };
 
