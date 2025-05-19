@@ -67,20 +67,28 @@ export default function Donation() {
     setIsSubmitting(true);
 
     try {
-      // Simulate payment processing
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      toast({
-        title: "Thank You for Your Donation!",
-        description: `Your contribution of $${amount.toFixed(2)} helps us provide free healing services to those in need.`,
+      // Create a checkout session
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount,
+          name,
+          email,
+          message,
+        }),
       });
 
-      // Clear form
-      setSelectedAmount(0);
-      setCustomAmount("");
-      setName("");
-      setEmail("");
-      setMessage("");
+      const { success, url, error } = await response.json();
+
+      if (success && url) {
+        // Redirect to Stripe Checkout
+        window.location.href = url;
+      } else {
+        throw new Error(error || "Failed to create checkout session");
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error);
@@ -90,7 +98,6 @@ export default function Donation() {
           "There was an error processing your donation. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setIsSubmitting(false);
     }
   };
