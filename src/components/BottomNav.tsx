@@ -27,14 +27,14 @@ const allLocations = [
         label: "24 Hour Activations",
         icon: Sparkles,
       },
-      { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
+      // { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
       // {
       //   href: "/request-healing",
       //   label: "Request Healing & Prayer",
       //   icon: Heart,
       // },
       { href: "/share-healing", label: "Share Healing", icon: Flower2 },
-      { href: "/energy-healing", label: "Energy Healing", icon: Zap },
+      // { href: "/energy-healing", label: "Energy Healing", icon: Zap },
 
       // {
       //   href: "/daily-blessings",
