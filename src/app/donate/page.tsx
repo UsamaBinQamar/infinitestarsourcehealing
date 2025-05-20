@@ -116,7 +116,7 @@ export default function Donation() {
       {/* Buy Me a Coffee Button */}
       <div className="flex flex-col items-center justify-center mb-8">
         <a
-          href="https://www.buymeacoffee.com/yourusername" // <-- Replace with your link!
+          href="https://www.buymeacoffee.com/isshealing" // <-- Replace with your link!
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg px-8 py-4 rounded-xl shadow-lg transition-all duration-200"
