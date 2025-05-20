@@ -34,6 +34,7 @@ const allLocations = [
       //   icon: Heart,
       // },
       { href: "/share-healing", label: "Share Healing", icon: Flower2 },
+      { href: "/energy-healing", label: "Energy Healing", icon: Zap },
 
       // {
       //   href: "/daily-blessings",
