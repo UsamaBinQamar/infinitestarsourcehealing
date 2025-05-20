@@ -16,6 +16,18 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { contactInfo } from "@/lib/data";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPhoneAlt,
+  faEnvelope,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookF,
+  faInstagram,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 interface FormData {
   name: string;
@@ -252,13 +264,16 @@ const Contact: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-start">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-envelope text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="text-primary"
+                    />
                   </div>
                   <div>
                     <p className="text-foreground font-medium">Email Us</p>
                     <a
                       href={`mailto:${contactInfo.email}`}
-                      className="text-secondary hover:text-primary transition-colors"
+                      className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
                     >
                       {contactInfo.email}
                     </a>
@@ -267,13 +282,16 @@ const Contact: React.FC = () => {
 
                 <div className="flex items-start">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-phone-alt text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faPhoneAlt}
+                      className="text-primary"
+                    />
                   </div>
                   <div>
                     <p className="text-foreground font-medium">Call Us</p>
                     <a
                       href={`tel:${contactInfo.phone}`}
-                      className="text-secondary hover:text-primary transition-colors"
+                      className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
                     >
                       {contactInfo.phone}
                     </a>
@@ -285,7 +303,10 @@ const Contact: React.FC = () => {
 
                 <div className="flex items-start">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <i className="fas fa-map-marker-alt text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faMapMarkerAlt}
+                      className="text-primary"
+                    />
                   </div>
                   <div>
                     <p className="text-foreground font-medium">Visit Us</p>
@@ -305,31 +326,43 @@ const Contact: React.FC = () => {
                 <div className="flex space-x-4">
                   <a
                     href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
                     aria-label="Facebook"
                   >
-                    <i className="fab fa-facebook-f"></i>
+                    <FontAwesomeIcon
+                      icon={faFacebookF}
+                      className="text-primary"
+                    />
                   </a>
                   <a
                     href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary    hover:text-white transition-all"
                     aria-label="Instagram"
                   >
-                    <i className="fab fa-instagram"></i>
+                    <FontAwesomeIcon
+                      icon={faInstagram}
+                      className="text-primary"
+                    />
                   </a>
                   <a
                     href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
                     aria-label="Twitter"
                   >
-                    <i className="fab fa-twitter"></i>
+                    <FontAwesomeIcon
+                      icon={faTwitter}
+                      className="text-primary"
+                    />
                   </a>
                   <a
                     href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
                     aria-label="YouTube"
                   >
-                    <i className="fab fa-youtube"></i>
+                    <FontAwesomeIcon
+                      icon={faYoutube}
+                      className="text-primary"
+                    />
                   </a>
                 </div>
               </div>
@@ -364,7 +397,7 @@ const Contact: React.FC = () => {
               </p>
 
               <div className="mt-6">
-                <Button className="bg-accent hover:bg-accent/90 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+                <Button className="bg-accent hover:bg-accent/90 text-black font-semibold py-2 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
                   Emergency Healing
                 </Button>
               </div>
