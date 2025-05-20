@@ -27,6 +27,16 @@ const allLocations = [
         label: "24 Hour Activations",
         icon: Sparkles,
       },
+      {
+        href: "/reiki-&-energy-healing",
+        label: "Reiki & Energy Healing",
+        icon: Zap,
+      },
+      {
+        href: "/healing-activation-music",
+        label: "Healing Activation Music",
+        icon: Zap,
+      },
       // { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
       // {
       //   href: "/request-healing",
