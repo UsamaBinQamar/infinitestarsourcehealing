@@ -9,7 +9,7 @@ export default function Activations() {
         <p className="text-muted-foreground max-w-2xl mx-auto">
           The music activates healing that flows to you as you go throughout
           your day. These energetic compositions continue working long after
-          you've finished listening.
+          you&apos;ve finished listening.
         </p>
       </div>
 
