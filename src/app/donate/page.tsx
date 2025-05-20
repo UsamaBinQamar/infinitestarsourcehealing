@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { Coffee } from "lucide-react";
 
 export default function Donation() {
   const { toast } = useToast();
@@ -111,6 +112,29 @@ export default function Donation() {
         Your generous donations help us continue providing free Reiki and
         healing energy to those in need around the world.
       </p>
+
+      {/* Buy Me a Coffee Button */}
+      <div className="flex flex-col items-center justify-center mb-8">
+        <a
+          href="https://www.buymeacoffee.com/yourusername" // <-- Replace with your link!
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg px-8 py-4 rounded-xl shadow-lg transition-all duration-200"
+        >
+          <Coffee className="w-7 h-7" />
+          Support us on Buy Me a Coffee
+        </a>
+        <span className="text-gray-500 text-sm mt-2">
+          Quick, secure, and no signup required!
+        </span>
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center my-8">
+        <div className="flex-grow border-t border-gray-300"></div>
+        <span className="mx-4 text-gray-400 font-semibold">or</span>
+        <div className="flex-grow border-t border-gray-300"></div>
+      </div>
 
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
