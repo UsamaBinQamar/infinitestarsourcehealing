@@ -281,7 +281,7 @@ const Contact: React.FC = () => {
                   <FontAwesomeIcon icon={faPhoneAlt} className="text-primary" />
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">Call Us</p>
+                  <p className="text-foreground font-medium">Text Us</p>
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
