@@ -289,7 +289,7 @@ const Contact: React.FC = () => {
                     {contactInfo.phone}
                   </a>
                   <p className="text-sm text-muted-foreground">
-                    Monday-Friday, 9am-5pm EST
+                    We will get back to you soon
                   </p>
                 </div>
               </div>
