@@ -37,6 +37,11 @@ const allLocations = [
         label: "Healing Activation Music",
         icon: Zap,
       },
+      {
+        href: "/request-healing",
+        label: "Request Healing & Prayer",
+        icon: Heart,
+      },
       // { href: "/energy-healing", label: "Free Energy Healing", icon: Zap },
       // {
       //   href: "/request-healing",
