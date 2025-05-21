@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -11,23 +11,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 import { contactInfo } from "@/lib/data";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPhoneAlt,
-  faEnvelope,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { apiRequest } from "@/lib/queryClient";
 import {
   faFacebookF,
   faInstagram,
   faTwitter,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { FormEvent, useState } from "react";
 
 interface FormData {
   name: string;
@@ -114,8 +110,13 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-gradient-to-br from-purple-50 via-white to-indigo-50 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-100 rounded-full opacity-30 blur-3xl"></div>
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-100 rounded-full opacity-30 blur-3xl"></div>
+      </div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h1 className="section-heading text-3xl md:text-4xl font-heading font-bold text-primary mb-4">
             Connect With Us
@@ -127,8 +128,8 @@ const Contact: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-white rounded-xl shadow-md p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
+          <div className="bg-white/90 rounded-2xl shadow-xl p-10 h-full flex flex-col justify-center border border-purple-100">
             <h3 className="text-2xl font-heading font-semibold text-primary mb-6">
               Send Us a Message
             </h3>
@@ -254,156 +255,112 @@ const Contact: React.FC = () => {
               </Button>
             </form>
           </div>
+          <div className="bg-white/90 rounded-2xl shadow-xl p-10 h-full flex flex-col justify-center border border-indigo-100">
+            <h3 className="text-2xl font-heading font-semibold text-primary mb-6">
+              Contact Information
+            </h3>
 
-          <div className="flex flex-col justify-between">
-            <div className="bg-white rounded-xl shadow-md p-8 mb-8">
-              <h3 className="text-2xl font-heading font-semibold text-primary mb-6">
-                Contact Information
-              </h3>
-
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <FontAwesomeIcon
-                      icon={faEnvelope}
-                      className="text-primary"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-foreground font-medium">Email Us</p>
-                    <a
-                      href={`mailto:${contactInfo.email}`}
-                      className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
-                    >
-                      {contactInfo.email}
-                    </a>
-                  </div>
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <FontAwesomeIcon icon={faEnvelope} className="text-primary" />
                 </div>
-
-                <div className="flex items-start">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <FontAwesomeIcon
-                      icon={faPhoneAlt}
-                      className="text-primary"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-foreground font-medium">Call Us</p>
-                    <a
-                      href={`tel:${contactInfo.phone}`}
-                      className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
-                    >
-                      {contactInfo.phone}
-                    </a>
-                    <p className="text-sm text-muted-foreground">
-                      Monday-Friday, 9am-5pm EST
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                    <FontAwesomeIcon
-                      icon={faMapMarkerAlt}
-                      className="text-primary"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-foreground font-medium">Visit Us</p>
-                    <div className="text-muted-foreground">
-                      {contactInfo.address.map((line, index) => (
-                        <p key={index}>{line}</p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <h4 className="font-heading font-medium text-foreground mb-4">
-                  Follow Us
-                </h4>
-                <div className="flex space-x-4">
+                <div>
+                  <p className="text-foreground font-medium">Email Us</p>
                   <a
-                    href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
-                    aria-label="Facebook"
+                    href={`mailto:${contactInfo.email}`}
+                    className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
                   >
-                    <FontAwesomeIcon
-                      icon={faFacebookF}
-                      className="text-primary"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary    hover:text-white transition-all"
-                    aria-label="Instagram"
-                  >
-                    <FontAwesomeIcon
-                      icon={faInstagram}
-                      className="text-primary"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
-                    aria-label="Twitter"
-                  >
-                    <FontAwesomeIcon
-                      icon={faTwitter}
-                      className="text-primary"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
-                    aria-label="YouTube"
-                  >
-                    <FontAwesomeIcon
-                      icon={faYoutube}
-                      className="text-primary"
-                    />
+                    {contactInfo.email}
                   </a>
                 </div>
               </div>
+
+              <div className="flex items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <FontAwesomeIcon icon={faPhoneAlt} className="text-primary" />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">Call Us</p>
+                  <a
+                    href={`tel:${contactInfo.phone}`}
+                    className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    {contactInfo.phone}
+                  </a>
+                  <p className="text-sm text-muted-foreground">
+                    Monday-Friday, 9am-5pm EST
+                  </p>
+                </div>
+              </div>
+
+              {/* <div className="flex items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    className="text-primary"
+                  />
+                </div>
+                <div>
+                  <p className="text-foreground font-medium">Visit Us</p>
+                  <div className="text-muted-foreground">
+                    {contactInfo.address.map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              </div> */}
             </div>
 
-            <div className="bg-white rounded-xl shadow-md p-8">
-              <h3 className="text-2xl font-heading font-semibold text-primary mb-6">
-                Healing Hours
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Our practitioners offer distance healing sessions during the
-                following times:
-              </p>
-
-              <div className="space-y-2">
-                {Object.entries(contactInfo.hours).map(
-                  ([day, hours], index) => (
-                    <div key={index} className="flex justify-between">
-                      <span className="text-foreground">{day}</span>
-                      <span className="text-foreground font-medium">
-                        {hours}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
-
-              <p className="text-muted-foreground mt-4">
-                Need healing outside these hours? Emergency distance healing is
-                available 24/7 for those in crisis. Please use our emergency
-                contact form.
-              </p>
-
-              <div className="mt-6">
-                <Button className="bg-accent hover:bg-accent/90 text-black font-semibold py-2 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
-                  Emergency Healing
-                </Button>
+            <div className="mt-8">
+              <h4 className="font-heading font-medium text-foreground mb-4">
+                Follow Us
+              </h4>
+              <div className="flex space-x-4">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
+                  aria-label="Facebook"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    className="text-primary"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary    hover:text-white transition-all"
+                  aria-label="Instagram"
+                >
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    className="text-primary"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
+                  aria-label="Twitter"
+                >
+                  <FontAwesomeIcon icon={faTwitter} className="text-primary" />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary   hover:text-white transition-all"
+                  aria-label="YouTube"
+                >
+                  <FontAwesomeIcon icon={faYoutube} className="text-primary" />
+                </a>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      {/* Optional: Decorative SVG or icon in the center */}
+      <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+        <span className="bg-gradient-to-tr from-purple-400 to-indigo-400 p-4 rounded-full shadow-xl text-white text-3xl border-4 border-white/60">
+          ✨
+        </span>
       </div>
     </section>
   );

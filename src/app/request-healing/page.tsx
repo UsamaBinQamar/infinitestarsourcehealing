@@ -335,24 +335,33 @@ export default function RequestHealing() {
       </div>
 
       {showSuccessModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
-            <div className="text-5xl mb-4">✨</div>
-            <h2 className="text-2xl font-bold mb-2 text-indigo-700">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-purple-700/80 via-pink-400/60 to-indigo-600/80 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-2xl p-10 max-w-md text-center relative border-4 border-purple-200 animate-pop-in">
+            <div className="flex justify-center mb-4">
+              <span className="relative inline-block">
+                <span className="absolute -inset-2 blur-xl opacity-60 bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 rounded-full animate-pulse"></span>
+                <span className="relative text-6xl select-none">✨</span>
+              </span>
+            </div>
+            <h2 className="text-3xl font-extrabold mb-2 text-indigo-700 drop-shadow-lg">
               Thank You!
             </h2>
-            <p className="mb-4">
-              Your healing request has been received.
+            <p className="mb-4 text-lg text-gray-700">
+              Your healing request has been{" "}
+              <span className="font-semibold text-purple-600">received</span>.
               <br />
-              Our practitioners will begin sending energy right away.
+              <span className="text-indigo-600 font-medium">
+                Our practitioners will begin sending energy right away.
+              </span>
               <br />
-              <span className="text-lg text-purple-600">
-                You are surrounded by light!
+              <span className="block mt-2 text-xl font-bold text-pink-500 animate-glow">
+                You are surrounded by light! 🌟
               </span>
             </p>
             <Button
               onClick={() => setShowSuccessModal(false)}
-              className="bg-indigo-600 text-white px-6 py-2 rounded-lg"
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-pink-600 text-white px-8 py-2 rounded-lg shadow-lg text-lg font-semibold mt-2 transition-all duration-200"
+              autoFocus
             >
               Close
             </Button>

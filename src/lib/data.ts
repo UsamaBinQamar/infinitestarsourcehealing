@@ -1,12 +1,12 @@
 import {
+  ContactInfo,
+  Contributor,
   EnergyHealingMethod,
+  FaqItem,
+  GalleryImage,
   ReikiBenefit,
   SubscriptionOption,
   Testimonial,
-  GalleryImage,
-  Contributor,
-  FaqItem,
-  ContactInfo,
 } from "@/types";
 
 export const energyHealingMethods: EnergyHealingMethod[] = [
@@ -247,7 +247,7 @@ export const faqItems: FaqItem[] = [
 
 export const contactInfo: ContactInfo = {
   email: "contactus@infinitestarsourcehealing.com",
-  phone: "+1 (800) 555-1234",
+  phone: "+1 (312) 612-0610",
   address: [
     "123 Healing Center Ave",
     "Serenity Valley, CA 90210",
