@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     console.log("Email sent:", result.data);
     return NextResponse.json({ success: true, data: result.data });
   } catch (error) {
+    console.error("Error sending email:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
