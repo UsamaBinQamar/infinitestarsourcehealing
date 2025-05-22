@@ -6,20 +6,27 @@ import { useState } from "react";
 export default function ShareHealing() {
   // Gallery slider state and images
   const images = [
-    {
-      src: "/ISS Healing Reiki Energy Infused 1.webp",
-      alt: "ISS Healing Reiki Energy Infused",
-    },
-    {
-      src: "/reiki stress.webp",
-      alt: "Reiki Stress Relief",
-    },
+    { src: "/image (7).jpg", alt: "Healing Gallery 1" },
+    { src: "/image (8).jpg", alt: "Healing Gallery 2" },
+    { src: "/image (10).jpg", alt: "Healing Gallery 4" },
+    { src: "/image (11).jpg", alt: "Healing Gallery 5" },
+    { src: "/image (18).jpg", alt: "Healing Gallery 6" },
+
+    { src: "/image (14).jpg", alt: "Healing Gallery 8" },
+    { src: "/image (17).jpg", alt: "Healing Gallery 11" },
+    { src: "/image (21).jpg", alt: "Healing Gallery 15" },
+    { src: "/image (23).jpg", alt: "Healing Gallery 17" },
+    { src: "/image (25).jpg", alt: "Healing Gallery 19" },
+    { src: "/image (26).jpg", alt: "Healing Gallery 20" },
+    { src: "/image (29).jpg", alt: "Healing Gallery 23" },
   ];
   const [current, setCurrent] = useState(0);
   const [copied, setCopied] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const prevImage = () =>
     setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const nextImage = () =>
     setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
@@ -66,64 +73,21 @@ export default function ShareHealing() {
   return (
     <div className="max-w-4xl mx-auto py-12">
       {/* Gallery Slider */}
-      <div className="relative w-full max-w-xl mx-auto mb-6">
-        <div className="overflow-hidden rounded-xl shadow-lg">
-          <Image
-            width={500}
-            height={500}
-            src={images[current].src}
-            alt={images[current].alt}
-            className="w-full h-72 object-cover transition-all duration-500"
-          />
-        </div>
-        {/* Navigation Arrows */}
-        <button
-          onClick={prevImage}
-          className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70 hover:bg-white text-purple-700 rounded-full p-2 shadow transition-colors"
-          aria-label="Previous image"
-        >
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-        <button
-          onClick={nextImage}
-          className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70 hover:bg-white text-purple-700 rounded-full p-2 shadow transition-colors"
-          aria-label="Next image"
-        >
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-        {/* Indicators */}
-        <div className="flex justify-center gap-2 mt-3">
-          {images.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrent(idx)}
-              className={`w-3 h-3 rounded-full transition-all border-2 ${current === idx ? "bg-purple-600 border-purple-600" : "bg-white border-purple-300"}`}
-              aria-label={`Go to image ${idx + 1}`}
-            />
-          ))}
-        </div>
-      </div>
 
+      {/* Grid Gallery for all images */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {images.map((img, idx) => (
+          <div key={idx} className="overflow-hidden rounded-xl shadow-lg">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={400}
+              height={400}
+              className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        ))}
+      </div>
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent mb-4">
           Share Healing Energy
