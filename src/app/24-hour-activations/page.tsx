@@ -1,4 +1,5 @@
 "use client";
+// re_j9mUaqoz_663od5F2FaJ6MY6kH7jwVzP2
 import { Share, Download, Link as LinkIcon, Check } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -109,17 +110,17 @@ export default function ShareHealing() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-12">
-      <div className="text-center mb-10 mt-12">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent mb-4">
+    <div className="max-w-4xl mx-auto py-8">
+      <section className="text-center  ">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent">
           Share Healing Energy
         </h1>
-        <p className="text-gray-700 max-w-2xl mx-auto">
+        <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
           This digital healing card contains embedded healing energy. Share it
           with friends, family, and anyone who could benefit from positive
           energy and support.
         </p>
-      </div>
+      </section>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {images.map((img, idx) => (
           <div

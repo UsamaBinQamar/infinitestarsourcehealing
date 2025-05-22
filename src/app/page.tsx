@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <section className="text-center py-12">
+      <section className="text-center py-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent">
           Infinite Star Source Healing
         </h1>
