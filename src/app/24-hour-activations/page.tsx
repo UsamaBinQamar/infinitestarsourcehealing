@@ -4,91 +4,113 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function ShareHealing() {
-  // Gallery slider state and images
   const images = [
-    { src: "/image (7).jpg", alt: "Healing Gallery 1" },
-    { src: "/image (8).jpg", alt: "Healing Gallery 2" },
-    { src: "/image (10).jpg", alt: "Healing Gallery 4" },
-    { src: "/image (11).jpg", alt: "Healing Gallery 5" },
-    { src: "/image (18).jpg", alt: "Healing Gallery 6" },
-
-    { src: "/image (14).jpg", alt: "Healing Gallery 8" },
-    { src: "/image (17).jpg", alt: "Healing Gallery 11" },
-    { src: "/image (21).jpg", alt: "Healing Gallery 15" },
-    { src: "/image (23).jpg", alt: "Healing Gallery 17" },
-    { src: "/image (25).jpg", alt: "Healing Gallery 19" },
-    { src: "/image (26).jpg", alt: "Healing Gallery 20" },
-    { src: "/image (29).jpg", alt: "Healing Gallery 23" },
+    {
+      src: "/image (7).jpg",
+      alt: "Healing Gallery 1",
+      copyText: "Receive this healing energy!",
+    },
+    {
+      src: "/image (8).jpg",
+      alt: "Healing Gallery 2",
+      copyText: "May you be blessed with light and healing.",
+    },
+    {
+      src: "/image (10).jpg",
+      alt: "Healing Gallery 4",
+      copyText: "This card is infused with positive energy.",
+    },
+    {
+      src: "/image (11).jpg",
+      alt: "Healing Gallery 5",
+      copyText: "Feel the Reiki energy flow to you now.",
+    },
+    {
+      src: "/image (18).jpg",
+      alt: "Healing Gallery 6",
+      copyText: "Healing and peace to you and your loved ones.",
+    },
+    {
+      src: "/image (14).jpg",
+      alt: "Healing Gallery 8",
+      copyText: "You are surrounded by love and light.",
+    },
+    {
+      src: "/image (17).jpg",
+      alt: "Healing Gallery 11",
+      copyText: "May this image bring you comfort and strength.",
+    },
+    {
+      src: "/image (21).jpg",
+      alt: "Healing Gallery 15",
+      copyText: "Share this card to spread healing energy.",
+    },
+    {
+      src: "/image (23).jpg",
+      alt: "Healing Gallery 17",
+      copyText: "Infinite healing energy flows to you.",
+    },
+    {
+      src: "/image (25).jpg",
+      alt: "Healing Gallery 19",
+      copyText: "You are a beacon of light and hope.",
+    },
+    {
+      src: "/image (26).jpg",
+      alt: "Healing Gallery 20",
+      copyText: "May you feel peace and renewal.",
+    },
+    {
+      src: "/image (29).jpg",
+      alt: "Healing Gallery 23",
+      copyText: "This card is a gift of healing energy.",
+    },
   ];
-  const [current, setCurrent] = useState(0);
-  const [copied, setCopied] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const prevImage = () =>
-    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const nextImage = () =>
-    setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
 
-  // Download current image
-  const handleDownload = () => {
+  const handleDownload = (src: string) => {
     const link = document.createElement("a");
-    link.href = images[current].src;
-    link.download = images[current].src.split("/").pop() || "image.webp";
+    link.href = src;
+    link.download = src.split("/").pop() || "image.jpg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  // Share current image (Web Share API)
-  const handleShare = async () => {
+  const handleShare = async (img: { src: string; alt: string }) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: images[current].alt,
-          text: images[current].alt,
-          url: window.location.origin + images[current].src,
+          title: img.alt,
+          text: img.alt,
+          url: window.location.origin + img.src,
         });
       } catch {
         // User cancelled or error
       }
     } else {
-      // Fallback: copy link to clipboard
-      await handleCopyLink();
+      await handleCopyLink(
+        img.src,
+        images.findIndex((i) => i.src === img.src)
+      );
       alert(
         "Sharing is not supported on this device/browser. The link has been copied instead."
       );
     }
   };
 
-  // Copy link to clipboard
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(
-      window.location.origin + images[current].src
-    );
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200);
+  const handleCopyLink = async (src: string, idx: number) => {
+    const image = images[idx];
+    const textToCopy = image.copyText;
+    await navigator.clipboard.writeText(textToCopy);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 1200);
   };
 
   return (
     <div className="max-w-4xl mx-auto py-12">
-      {/* Gallery Slider */}
-
-      {/* Grid Gallery for all images */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {images.map((img, idx) => (
-          <div key={idx} className="overflow-hidden rounded-xl shadow-lg">
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={400}
-              height={400}
-              className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        ))}
-      </div>
-      <div className="text-center mb-10">
+      <div className="text-center mb-10 mt-12">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent mb-4">
           Share Healing Energy
         </h1>
@@ -98,51 +120,61 @@ export default function ShareHealing() {
           energy and support.
         </p>
       </div>
-
-      {/* Action Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-8">
-        {typeof navigator !== "undefined" &&
-          typeof navigator.share === "function" && (
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition-colors"
-            >
-              <Share className="w-5 h-5" />
-              <span>Share</span>
-            </button>
-          )}
-        <button
-          onClick={handleDownload}
-          className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
-        >
-          <Download className="w-5 h-5" />
-          <span>Download</span>
-        </button>
-        <button
-          onClick={handleCopyLink}
-          className="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg transition-colors relative"
-        >
-          <LinkIcon className="w-5 h-5" />
-          <span>Copy Link</span>
-          {copied && (
-            <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1">
-              <Check className="w-4 h-4" /> Copied!
-            </span>
-          )}
-        </button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className="relative group overflow-hidden rounded-xl shadow-lg"
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={400}
+              height={400}
+              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            {/* Overlay with action buttons */}
+            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+              <div className="flex justify-center gap-3">
+                <button
+                  onClick={() => handleDownload(img.src)}
+                  className="bg-white/80 hover:bg-white text-blue-700 rounded-full p-2 shadow transition-colors"
+                  title="Download"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => handleShare(img)}
+                  className="bg-white/80 hover:bg-white text-purple-700 rounded-full p-2 shadow transition-colors"
+                  title="Share"
+                >
+                  <Share className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => handleCopyLink(img.src, idx)}
+                  className="bg-white/80 hover:bg-white text-pink-700 rounded-full p-2 shadow transition-colors relative"
+                >
+                  <LinkIcon className="w-5 h-5" />
+                  {copiedIdx === idx && (
+                    <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1">
+                      <Check className="w-4 h-4" /> Copied!
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-
       <div className="bg-white rounded-xl shadow-md p-8 mb-12">
         <h2 className="text-2xl font-bold text-purple-800 mb-4">
           How This Healing Card Works
         </h2>
-
         <p className="text-gray-700 mb-4">
           This digital card has been energetically charged with healing Reiki
           energy. When someone views this image, the healing energy is activated
           and flows to them, supporting their well-being on all levels.
         </p>
-
         <h3 className="text-xl font-semibold text-purple-700 mt-6 mb-3">
           Ways to Share
         </h3>
@@ -160,7 +192,6 @@ export default function ShareHealing() {
             Copy the link and share it through email or text
           </li>
         </ul>
-
         <p className="text-gray-700 mt-6">
           The energy in this card works regardless of time or distance.
           Recipients will receive the healing energy simply by viewing the
