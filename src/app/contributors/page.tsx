@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 // import gregoryImage from "../assets/gregory.jpg";
 // import rachelImage from "../assets/rachel.jpg";
 export default function Contributors() {
@@ -17,13 +19,13 @@ export default function Contributors() {
             {" "}
             <div className="w-36 h-36 mx-auto md:mx-0 rounded-full overflow-hidden">
               {" "}
-              {/* <Image
+              <Image
                 width={100}
                 height={100}
-                src={gregoryImage}
+                src="/20241216_124924 (1).jpg"
                 alt="Gregory L"
                 className="w-full h-full object-cover"
-              /> */}
+              />
             </div>{" "}
             <div className="flex-1">
               {" "}
@@ -48,13 +50,13 @@ export default function Contributors() {
             {" "}
             <div className="w-36 h-36 mx-auto md:mx-0 rounded-full overflow-hidden">
               {" "}
-              {/* <Image
+              <Image
                 width={100}
                 height={100}
-                src={rachelImage}
+                src="/rachel.jpg"
                 alt="Rachel Smith"
                 className="w-full h-full object-cover"
-              />{" "} */}
+              />
             </div>{" "}
             <div className="flex-1">
               {" "}
@@ -76,11 +78,12 @@ export default function Contributors() {
           </div>{" "}
         </div>{" "}
         <div className="mt-12 text-center">
-          {" "}
-          <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-            {" "}
-            Apply to Become a Contributor{" "}
-          </Button>{" "}
+          <Link href="/contribute">
+            <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+              {" "}
+              Apply to Become a Contributor{" "}
+            </Button>
+          </Link>
         </div>{" "}
       </main>{" "}
     </div>

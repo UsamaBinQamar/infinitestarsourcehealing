@@ -23,18 +23,18 @@ const allLocations = [
     category: "Free Healing",
     items: [
       {
-        href: "/24-hour-activations",
-        label: "24 Hour Activations",
+        href: "/24-hour-image-activations",
+        label: "24 hour image activations",
         icon: Sparkles,
       },
       {
-        href: "/reiki-&-energy-healing",
-        label: "Reiki & Energy Healing",
+        href: "/healing-sessions",
+        label: "Healing Sessions",
         icon: Zap,
       },
       {
-        href: "/healing-activation-music",
-        label: "Healing Activation Music",
+        href: "/24-hr-reiki-activations",
+        label: "24 Hr Reiki Activation Music",
         icon: Zap,
       },
       {

@@ -5,7 +5,7 @@ export default function Activations() {
     <div className="container mx-auto px-4 py-8 pb-24">
       <div className="text-center space-y-4 mb-8">
         <Zap className="h-12 w-12 mx-auto text-primary" />
-        <h1 className="text-3xl font-bold">Healing Activation Music</h1>
+        <h1 className="text-3xl font-bold">24 Hr Reiki Activation Music</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           The music activates healing that flows to you as you go throughout
           your day. These energetic compositions continue working long after

@@ -124,18 +124,17 @@ export default function RequestHealing() {
             </CardTitle>
             <CardDescription className="text-center px-4 space-y-2">
               <p>
-                Our practitioners will pray daily for your requests. This form
-                is infused with high vibrational energy, and healing energy will
-                be immediately sent to the situation, person, or thing once
-                submitted.
+                Our forms are infused with reiki healing energy, and healing
+                energy will be immediately sent to the situation, person, or
+                thing once submitted for 24 hours after submitting the form.
               </p>
-              <div className="flex items-center justify-center gap-2 text-purple-600">
+              {/* <div className="flex items-center justify-center gap-2 text-purple-600">
                 <Sparkles className="h-4 w-4" />
                 <span className="text-sm font-medium">
                   Energy Transmission Active
                 </span>
                 <Sparkles className="h-4 w-4" />
-              </div>
+              </div> */}
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
