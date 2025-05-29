@@ -2,9 +2,17 @@
 // re_j9mUaqoz_663od5F2FaJ6MY6kH7jwVzP2
 import { Share, Download, Link as LinkIcon, Check } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ShareHealing() {
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+
   const images = [
     {
       src: "/image (7).jpg",
@@ -85,7 +93,7 @@ export default function ShareHealing() {
         await navigator.share({
           title: img.alt,
           text: img.alt,
-          url: window.location.origin + img.src,
+          url: origin + img.src,
         });
       } catch {
         // User cancelled or error
@@ -181,7 +189,7 @@ export default function ShareHealing() {
                 )}
                 {/* Facebook */}
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + img.src)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin + img.src)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 flex items-center justify-center"
@@ -197,7 +205,7 @@ export default function ShareHealing() {
                 </a>
                 {/* Twitter/X */}
                 <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.origin + img.src)}&text=${encodeURIComponent(img.copyText)}`}
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(origin + img.src)}&text=${encodeURIComponent(img.copyText)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-400 hover:bg-blue-500 text-white rounded-full p-2 flex items-center justify-center"
@@ -213,7 +221,7 @@ export default function ShareHealing() {
                 </a>
                 {/* WhatsApp */}
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(img.copyText + " " + window.location.origin + img.src)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(img.copyText + " " + origin + img.src)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 flex items-center justify-center"
@@ -231,7 +239,7 @@ export default function ShareHealing() {
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${window.location.origin + img.src} - ${img.copyText}`
+                      `${origin + img.src} - ${img.copyText}`
                     );
                     setCopiedIdx(idx);
                     setTimeout(() => setCopiedIdx(null), 1200);
