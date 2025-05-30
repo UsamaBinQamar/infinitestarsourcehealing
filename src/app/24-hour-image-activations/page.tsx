@@ -1,17 +1,29 @@
 "use client";
 // re_j9mUaqoz_663od5F2FaJ6MY6kH7jwVzP2
-import { Share, Download, Link as LinkIcon, Check } from "lucide-react";
+import { Check, Download, Link as LinkIcon, Share } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
 
 export default function ShareHealing() {
   const [origin, setOrigin] = useState("");
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setOrigin(window.location.origin);
     }
   }, []);
+
+  // Open modal if ?card=IDX is present
+  useEffect(() => {
+    const cardParam = searchParams.get("card");
+    if (cardParam && !isNaN(Number(cardParam))) {
+      setSelectedIdx(Number(cardParam));
+    }
+  }, [searchParams]);
 
   const images = [
     {
@@ -117,79 +129,158 @@ export default function ShareHealing() {
     setTimeout(() => setCopiedIdx(null), 1200);
   };
 
+  // Helper to open modal and set query param
+  const openModal = (idx: number) => {
+    setSelectedIdx(idx);
+    const params = new URLSearchParams(window.location.search);
+    params.set("card", idx.toString());
+    router.replace(`?${params.toString()}`);
+  };
+
+  // Helper to close modal and remove query param
+  const closeModal = () => {
+    setSelectedIdx(null);
+    const params = new URLSearchParams(window.location.search);
+    params.delete("card");
+    router.replace(`?${params.toString()}`);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto py-8">
-      <section className="text-center  ">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent">
-          Share Healing Energy
-        </h1>
-        <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
-          This digital healing card contains embedded healing energy. Share it
-          with friends, family, and anyone who could benefit from positive
-          energy and support.
-        </p>
-      </section>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {images.map((img, idx) => (
-          <div
-            key={idx}
-            className="relative group overflow-hidden rounded-xl shadow-lg flex flex-col bg-white group"
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={400}
-              height={400}
-              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-            {/* Permanent icon row below image */}
-            <div className="flex justify-center gap-3 p-3">
-              <button
-                onClick={() => handleDownload(img.src)}
-                className="bg-gray-100 hover:bg-gray-200 text-blue-700 rounded-full p-2 shadow transition-colors"
-                title="Download"
-              >
-                <Download className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => handleShare(img)}
-                className="bg-gray-100 hover:bg-gray-200 text-blue-700 rounded-full p-2 shadow transition-colors"
-                title="Share"
-              >
-                <Share className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => handleCopyLink(img.src, idx)}
-                className="bg-gray-100 hover:bg-gray-200 text-pink-700 rounded-full p-2 shadow transition-colors relative"
-                title="Copy text"
-              >
-                <LinkIcon className="w-5 h-5" />
-                {copiedIdx === idx && (
-                  <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1">
-                    <Check className="w-4 h-4" /> Copied!
-                  </span>
-                )}
-              </button>
-            </div>
-            {/* New: Description and social buttons below image */}
-            <div className="p-4 flex flex-col gap-2 border-t bg-white">
-              <div className="text-gray-700 text-sm mb-1">
-                <span className="font-semibold">Description:</span> This is a
-                beautiful healing image.{" "}
-                <a href="#" className="text-blue-600 underline">
-                  Learn more
-                </a>
+    <Suspense fallback={null}>
+      <div className="max-w-4xl mx-auto py-8">
+        <section className="text-center  ">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent">
+            Share Healing Energy
+          </h1>
+          <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
+            This digital healing card contains embedded healing energy. Share it
+            with friends, family, and anyone who could benefit from positive
+            energy and support.
+          </p>
+        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {images.map((img, idx) => (
+            <div
+              key={idx}
+              className="cursor-pointer rounded-xl shadow-lg flex flex-col bg-white hover:shadow-2xl transition-shadow"
+              onClick={() => openModal(idx)}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={400}
+                height={400}
+                className="w-full h-64 object-cover rounded-t-xl"
+              />
+              <div className="p-4">
+                <div className="text-gray-700 text-sm font-semibold mb-1 truncate">
+                  {img.alt}
+                </div>
+                <div className="text-gray-500 text-xs truncate">
+                  {img.copyText}
+                </div>
               </div>
-              <div className="relative flex gap-2 mt-1">
-                {/* Tooltip for Copied! */}
-                {copiedIdx === idx && (
-                  <span className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1 shadow">
-                    <Check className="w-4 h-4" /> Copied!
-                  </span>
-                )}
+            </div>
+          ))}
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+          <h2 className="text-2xl font-bold text-purple-800 mb-4">
+            How This Healing Card Works
+          </h2>
+          <p className="text-gray-700 mb-4">
+            This digital card has been energetically charged with healing Reiki
+            energy. When someone views this image, the healing energy is
+            activated and flows to them, supporting their well-being on all
+            levels.
+          </p>
+          <h3 className="text-xl font-semibold text-purple-700 mt-6 mb-3">
+            Ways to Share
+          </h3>
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex items-start">
+              <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
+              Share directly through social media or messaging apps
+            </li>
+            <li className="flex items-start">
+              <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
+              Download the image and send it as an attachment
+            </li>
+            <li className="flex items-start">
+              <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
+              Copy the link and share it through email or text
+            </li>
+          </ul>
+          <p className="text-gray-700 mt-6">
+            The energy in this card works regardless of time or distance.
+            Recipients will receive the healing energy simply by viewing the
+            image, which will support their highest good.
+          </p>
+        </div>
+
+        {/* Modal */}
+        {selectedIdx !== null && images[selectedIdx] && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+            onClick={closeModal}
+          >
+            <div
+              className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-fadeIn"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+                aria-label="Close"
+              >
+                ×
+              </button>
+              <Image
+                src={images[selectedIdx].src}
+                alt={images[selectedIdx].alt}
+                width={500}
+                height={500}
+                className="w-full h-72 object-cover rounded-xl mb-4"
+              />
+              <div className="mb-2 text-lg font-bold text-purple-700 text-center">
+                {images[selectedIdx].alt}
+              </div>
+              <div className="mb-4 text-gray-700 text-center">
+                {images[selectedIdx].copyText}
+              </div>
+              <div className="flex justify-center gap-3 mb-4">
+                <button
+                  onClick={() => handleDownload(images[selectedIdx].src)}
+                  className="bg-gray-100 hover:bg-gray-200 text-blue-700 rounded-full p-2 shadow transition-colors"
+                  title="Download"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => handleShare(images[selectedIdx])}
+                  className="bg-gray-100 hover:bg-gray-200 text-blue-700 rounded-full p-2 shadow transition-colors"
+                  title="Share"
+                >
+                  <Share className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() =>
+                    handleCopyLink(images[selectedIdx].src, selectedIdx)
+                  }
+                  className="bg-gray-100 hover:bg-gray-200 text-pink-700 rounded-full p-2 shadow transition-colors relative"
+                  title="Copy text"
+                >
+                  <LinkIcon className="w-5 h-5" />
+                  {copiedIdx === selectedIdx && (
+                    <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1">
+                      <Check className="w-4 h-4" /> Copied!
+                    </span>
+                  )}
+                </button>
+              </div>
+              <div className="flex justify-center gap-2 mb-2">
                 {/* Facebook */}
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin + img.src)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(origin + images[selectedIdx].src)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 flex items-center justify-center"
@@ -205,7 +296,7 @@ export default function ShareHealing() {
                 </a>
                 {/* Twitter/X */}
                 <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(origin + img.src)}&text=${encodeURIComponent(img.copyText)}`}
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(origin + images[selectedIdx].src)}&text=${encodeURIComponent(images[selectedIdx].copyText)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-400 hover:bg-blue-500 text-white rounded-full p-2 flex items-center justify-center"
@@ -221,7 +312,7 @@ export default function ShareHealing() {
                 </a>
                 {/* WhatsApp */}
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(img.copyText + " " + origin + img.src)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(images[selectedIdx].copyText + " " + origin + images[selectedIdx].src)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 flex items-center justify-center"
@@ -236,61 +327,29 @@ export default function ShareHealing() {
                   </svg>
                 </a>
                 {/* Copy Link Button */}
-                <button
+                {/* <button
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${origin + img.src} - ${img.copyText}`
+                      `${origin + images[selectedIdx].src} - ${images[selectedIdx].copyText}`
                     );
-                    setCopiedIdx(idx);
+                    setCopiedIdx(selectedIdx);
                     setTimeout(() => setCopiedIdx(null), 1200);
                   }}
                   className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-2 flex items-center justify-center relative"
                   title="Copy link and text"
                 >
                   <LinkIcon className="w-4 h-4" />
-                  {copiedIdx === idx && (
+                  {copiedIdx === selectedIdx && (
                     <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs rounded px-2 py-1 flex items-center gap-1">
                       <Check className="w-4 h-4" /> Copied!
                     </span>
                   )}
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
-        ))}
+        )}
       </div>
-      <div className="bg-white rounded-xl shadow-md p-8 mb-12">
-        <h2 className="text-2xl font-bold text-purple-800 mb-4">
-          How This Healing Card Works
-        </h2>
-        <p className="text-gray-700 mb-4">
-          This digital card has been energetically charged with healing Reiki
-          energy. When someone views this image, the healing energy is activated
-          and flows to them, supporting their well-being on all levels.
-        </p>
-        <h3 className="text-xl font-semibold text-purple-700 mt-6 mb-3">
-          Ways to Share
-        </h3>
-        <ul className="space-y-3 text-gray-700">
-          <li className="flex items-start">
-            <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
-            Share directly through social media or messaging apps
-          </li>
-          <li className="flex items-start">
-            <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
-            Download the image and send it as an attachment
-          </li>
-          <li className="flex items-start">
-            <span className="inline-block w-2 h-2 bg-purple-400 rounded-full mr-3 mt-2"></span>
-            Copy the link and share it through email or text
-          </li>
-        </ul>
-        <p className="text-gray-700 mt-6">
-          The energy in this card works regardless of time or distance.
-          Recipients will receive the healing energy simply by viewing the
-          image, which will support their highest good.
-        </p>
-      </div>
-    </div>
+    </Suspense>
   );
 }
